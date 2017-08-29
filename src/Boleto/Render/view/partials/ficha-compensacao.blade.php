@@ -168,7 +168,7 @@
 
     <tr>
         <td colspan="8" class="noborder">
-            {!! $codigo_barras !!}
+            {{ $codigo_barras }}
         </td>
     </tr>
 

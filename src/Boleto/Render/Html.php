@@ -142,8 +142,8 @@ class Html implements HtmlContract
             throw new \Exception('Nenhum Boleto adicionado');
         }
 
-        view()->addNamespace('BoletoHtmlRender', realpath(__DIR__ . '/view/'));
-        return view('BoletoHtmlRender::boleto', [
+        \View::addNamespace('BoletoHtmlRender', realpath(__DIR__ . '/view/'));
+        return \View::make('BoletoHtmlRender::boleto', [
             'boletos' => $this->boleto,
             'css' => $this->writeCss(),
             'imprimir_carregamento' => (bool) $this->print,

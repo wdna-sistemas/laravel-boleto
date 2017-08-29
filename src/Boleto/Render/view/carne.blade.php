@@ -1,7 +1,7 @@
 @extends('BoletoHtmlRender::layout')
 @section('boleto')
     @foreach($boletos as $i => $boleto)
-        @php extract($boleto); @endphp
+        <?php extract($boleto); ?>
         <div style="width: 863px">
     <div style="float: left">
         <table class="table-boleto" style="width: 180px" cellpadding="0" cellspacing="0" border="0">

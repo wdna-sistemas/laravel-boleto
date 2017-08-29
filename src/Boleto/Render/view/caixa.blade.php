@@ -1,7 +1,7 @@
 @extends('BoletoHtmlRender::layout')
 @section('boleto')
     @foreach($boletos as $i => $boleto)
-        @php extract($boleto); @endphp
+        <?php extract($boleto); ?>
         @if($mostrar_instrucoes)
             <div class="noprint info">
                 <h2>Instruções de Impressão</h2>
@@ -14,7 +14,7 @@
                 </ul>
                 <span class="header">Linha Digitável: {{ $linha_digitavel }}</span>
                 <span class="header">Número: {{ $numero }}</span>
-                {!! $valor ? '<span class="header">Valor: R$' . $valor . '</span>' : '' !!}
+                {{ $valor ? '<span class="header">Valor: R$' . $valor . '</span>' : '' }}
                 <br>
                 <div class="linha-pontilhada" style="margin-bottom: 20px;">Recibo do pagador</div>
             </div>
