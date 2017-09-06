@@ -4,6 +4,7 @@ namespace Eduardokum\LaravelBoleto\Cnab\Remessa;
 use Eduardokum\LaravelBoleto\Contracts\Boleto\Boleto as BoletoContract;
 use Eduardokum\LaravelBoleto\Contracts\Pessoa as PessoaContract;
 use Eduardokum\LaravelBoleto\Util;
+use Illuminate\Support\Collection;
 
 abstract class AbstractRemessa
 {
@@ -428,7 +429,7 @@ abstract class AbstractRemessa
      */
     protected function getDetalhes()
     {
-        return collect($this->aRegistros[self::DETALHE]);
+        return new Collection($this->aRegistros[self::DETALHE]);
     }
 
     /**
