@@ -1268,7 +1268,7 @@ abstract class AbstractBoleto implements BoletoContract
     public function isValid(&$messages)
     {
         foreach ($this->camposObrigatorios as $campo) {
-            if (call_user_func([$this, 'get' . ucwords($campo)]) == '') {
+            if (call_user_func([$this, 'get' . ucwords($campo)]) === '') {
                 $messages .= "Campo $campo está em branco";
                 return false;
             }
