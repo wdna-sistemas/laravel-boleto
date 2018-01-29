@@ -4,7 +4,6 @@ namespace Eduardokum\LaravelBoleto\Cnab\Remessa;
 use Eduardokum\LaravelBoleto\Contracts\Boleto\Boleto as BoletoContract;
 use Eduardokum\LaravelBoleto\Contracts\Pessoa as PessoaContract;
 use Eduardokum\LaravelBoleto\Util;
-use Illuminate\Support\Collection;
 
 abstract class AbstractRemessa
 {
@@ -28,6 +27,11 @@ abstract class AbstractRemessa
         'conta',
         'beneficiario',
     ];
+
+    /**
+     * @var array
+     */
+    protected $boletos = [];
 
     /**
      * Código do banco
@@ -82,6 +86,12 @@ abstract class AbstractRemessa
      */
     protected $idremessa;
     /**
+     * A data que será informada no header da remessa
+     *
+     * @var \Carbon\Carbon;
+     */
+    protected $dataRemessa = null;
+    /**
      * Agência
      *
      * @var int
@@ -129,6 +139,25 @@ abstract class AbstractRemessa
         Util::fillClass($this, $params);
     }
 
+    /**
+     * Informa a data da remessa a ser gerada
+     *
+     */
+    public function setDataRemessa($data){
+        $this->dataRemessa = $data;
+    }
+
+    /**
+     * Retorna a data da remessa a ser gerada
+     *
+     * @return \Carbon\Carbon;
+     */
+    public function getDataRemessa($format){
+        if(is_null($this->dataRemessa)){
+            return \Carbon\Carbon::now()->format($format);
+        }
+        return $this->dataRemessa->format($format);
+    }
     /**
      * Seta os campos obrigatórios
      *
@@ -337,10 +366,12 @@ abstract class AbstractRemessa
      *
      * @return boolean
      */
-    public function isValid()
+    public function isValid(&$messages)
     {
         foreach ($this->camposObrigatorios as $campo) {
-            if (call_user_func([$this, 'get' . ucwords($campo)]) == '') {
+            $test = call_user_func([$this, 'get' . ucwords($campo)]);
+            if ($test === '' || is_null($test)) {
+                $messages .= "Campo $campo está em branco";
                 return false;
             }
         }
@@ -470,10 +501,7 @@ abstract class AbstractRemessa
      * @return string
      * @throws \Exception
      */
-    public function gerar()
-    {
-        throw new \Exception('Método não implementado');
-    }
+    abstract public function gerar();
 
     /**
      * Salva o arquivo no path informado
