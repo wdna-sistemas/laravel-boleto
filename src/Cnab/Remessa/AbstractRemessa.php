@@ -4,6 +4,7 @@ namespace Eduardokum\LaravelBoleto\Cnab\Remessa;
 use Eduardokum\LaravelBoleto\Contracts\Boleto\Boleto as BoletoContract;
 use Eduardokum\LaravelBoleto\Contracts\Pessoa as PessoaContract;
 use Eduardokum\LaravelBoleto\Util;
+use Illuminate\Support\Collection;
 
 abstract class AbstractRemessa
 {
