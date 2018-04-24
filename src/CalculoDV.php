@@ -203,7 +203,13 @@ class CalculoDV
 
     public static function bradescoNossoNumero($carteira, $nossoNumero)
     {
-        return Util::modulo11($carteira . $nossoNumero, 2, 7, 0, 'P');
+        return Util::modulo11(
+            $carteira . Util::numberFormatGeral($nossoNumero, 11),
+            2,
+            7,
+            0,
+            'P'
+        );
     }
 
     /*
